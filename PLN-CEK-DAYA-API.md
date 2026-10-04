@@ -525,6 +525,11 @@ import time
 import urllib.error
 import urllib.request
 
+try:  # konsol Windows cp1252: jangan crash saat cetak karakter •
+    sys.stdout.reconfigure(errors="replace")
+except (AttributeError, ValueError):  # pragma: no cover
+    pass
+
 CHECK = "https://connect-gateway.pln.co.id/platinum/v1/meter/check"
 USAGE = "https://connect-gateway.pln.co.id/platinum/v2/meter/usage/"
 REFRESH = "https://connect-gateway.pln.co.id/uranium/v2/user/access-token"

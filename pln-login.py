@@ -14,6 +14,11 @@ import sys
 import urllib.error
 import urllib.request
 
+try:  # konsol Windows cp1252: jangan crash saat cetak karakter •
+    sys.stdout.reconfigure(errors="replace")
+except (AttributeError, ValueError):  # pragma: no cover
+    pass
+
 AUTH = "https://connect-gateway.pln.co.id/u/user/v1/user/auth"
 TOKEN_FILE = pathlib.Path.home() / "pln-re" / "tok.json"
 
