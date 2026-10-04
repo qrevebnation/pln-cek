@@ -1,0 +1,15 @@
+# rahasia — jangan pernah masuk git
+tok.json
+t.txt
+p1.txt
+p2.txt
+p3.txt
+p4.txt
+*.token
+apk/
+mtest/
+
+# cache / artefak build
+__pycache__/
+*.pyc
+*.tar.gz
