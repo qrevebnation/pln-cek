@@ -225,17 +225,7 @@ dan `function pln-login`. Blok di `~/.bashrc` dihapus dengan `nano ~/.bashrc`, s
 
 ---
 
-## 7. File lain di repo ini
-
-| File | Isi |
-|---|---|
-| `install.sh` / `install.ps1` | installer satu baris yang mendaftarkan command `pln-cek` dan `pln-login` |
-| `uninstall.sh` / `uninstall.ps1` | uninstaller satu baris yang menghapus command, folder `pln-re`, dan entri PATH |
-| `pln-cek.py` | query IDPEL, mengembalikan daya, lat/long, dan pemilik, dengan refresh token otomatis |
-| `pln-login.py` | login OTP sekali jalan, menulis `tok.json` |
-| `PLN-CEK-DAYA-API.md` | referensi lengkap: seluruh endpoint, header, katalog status 200/404/500, bukti uji, risiko PII |
-
-### Alamat jalan dari koordinat
+## 7. Alamat jalan dari koordinat
 
 Nilai `address` dari PLN tidak bisa dibuka, tapi koordinatnya utuh. Balik ke alamat lewat
 Nominatim milik OpenStreetMap:
@@ -249,18 +239,3 @@ curl -A 'pln-cek/1.0' \
 Nominatim membatasi satu request per detik dan mewajibkan header `User-Agent`. Simpan hasil
 per koordinat supaya 500 meter tidak dihitung ulang berkali-kali, dan cantumkan atribusi
 © OpenStreetMap contributors. Kalau gagal atau timeout, biarkan, jangan diulang terus.
-
----
-
-## Riwayat perubahan
-
-| Versi | Perubahan |
-|---|---|
-| v1 | tutor awal: `check` (daya + lat/long) dan login OTP |
-| v2 | `--usage` untuk riwayat enam bulan, `get()` generik, baris `pemilik:` |
-| v2.1 | tagihan lewat titanium, alamat via OSM, tabel perbandingan `name` dan `aliasName` |
-| v3 | tutorial untuk manusia di terminal dan PowerShell, seluruh contoh disanitasi |
-| v3.1 | installer satu baris, `chcp` dipindah ke troubleshooting |
-| v3.2 | command sendiri `pln-cek` dan `pln-login` di PATH, tanpa `python3` |
-| v3.3 | penyuntingan gaya bahasa dan bagian uninstall |
-| v3.4 | uninstall jadi satu baris lewat `uninstall.sh` / `uninstall.ps1` |
