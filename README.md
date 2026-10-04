@@ -222,20 +222,3 @@ dan `function pln-login`. Blok di `~/.bashrc` dihapus dengan `nano ~/.bashrc`, s
 | `python: command not found` / `py : term ...` | Python belum terpasang | unduh dari python.org dan centang Add to PATH |
 | Karakter `•` jadi `?` atau berantakan di Windows | konsol bukan UTF-8 | jalankan `chcp 65001` lalu `$env:PYTHONUTF8="1"` |
 | respons berbeda dari dokumentasi | PLN mengganti API | cek header `x-plnmobile-version: 8.1.1` |
-
----
-
-## 7. Alamat jalan dari koordinat
-
-Nilai `address` dari PLN tidak bisa dibuka, tapi koordinatnya utuh. Balik ke alamat lewat
-Nominatim milik OpenStreetMap:
-
-```bash
-curl -A 'pln-cek/1.0' \
-  'https://nominatim.openstreetmap.org/reverse?lat=-7.9&lon=112.7&format=jsonv2&zoom=18'
-# → <nama jalan>, <kelurahan>, <kecamatan>, <kab/kota>, <provinsi> <kodepos>
-```
-
-Nominatim membatasi satu request per detik dan mewajibkan header `User-Agent`. Simpan hasil
-per koordinat supaya 500 meter tidak dihitung ulang berkali-kali, dan cantumkan atribusi
-© OpenStreetMap contributors. Kalau gagal atau timeout, biarkan, jangan diulang terus.
