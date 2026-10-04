@@ -33,9 +33,11 @@ iwr https://raw.githubusercontent.com/qrevebnation/pln-cek/master/install.ps1 -U
 Selesai. Installer otomatis:
 
 - mengunduh `pln-cek.py` + `pln-login.py` ke `~/pln-re` (Linux/macOS) atau `%USERPROFILE%\pln-re` (Windows)
-- memasang perintah **`pln-cek`** dan **`pln-login`** (alias bash / fungsi PowerShell) — sekali saja, tidak dobel
+- membuat **command sendiri** `pln-cek` dan `pln-login` (mirror command `ytm`/`hermes`) — tinggal ketik,
+  **tanpa `python3`/`py -3`**, sekali pasang, tidak dobel
 
-Lalu **buka terminal/PowerShell yang baru** (atau `source ~/.bashrc`) supaya perintah terbaca.
+Command ditaruh di `~/.local/bin` (Linux/macOS, sudah masuk PATH) dan di PATH user Windows.
+Lalu **buka terminal/PowerShell yang baru** (atau `source ~/.bashrc`) supaya PATH terbaca.
 
 <details>
 <summary>Instalasi manual (butuh <code>git</code>)</summary>
@@ -54,8 +56,8 @@ New-Item -ItemType Directory -Force "$env:USERPROFILE\pln-re" | Out-Null
 Copy-Item pln-cek.py,pln-login.py "$env:USERPROFILE\pln-re\"
 ```
 
-Tanpa perintah `pln-cek`/`pln-login`, jalankan langsung:
-`python3 ~/pln-re/pln-cek.py <IDPEL>` atau `py -3 "$env:USERPROFILE\pln-re\pln-cek.py" <IDPEL>`.
+Cara manual (tanpa installer): salin kedua file ke `~/pln-re` / `%USERPROFILE%\pln-re` lalu jalankan
+langsung `python3 ~/pln-re/pln-cek.py <IDPEL>` atau `py -3 "$env:USERPROFILE\pln-re\pln-cek.py" <IDPEL>`.
 
 </details>
 
@@ -171,7 +173,7 @@ Dengan `--usage`:
 
 | Gejala | Penyebab | Solusi |
 |---|---|---|
-| `'pln-cek' tidak dikenal` / `not recognized` | terminal belum dibuka ulang | `source ~/.bashrc` atau buka PowerShell baru |
+| `'pln-cek' tidak dikenal` / `not recognized` | PATH belum terbaca | Linux: `source ~/.bashrc`; Windows: buka PowerShell **baru** (PATH user dibaca saat sesi baru) |
 | `token hilang: jalankan login OTP dulu` | belum pernah login | langkah 2 |
 | `401 permintaan tidak diotorisasi` | access kadaluarsa/korup | biarkan script refresh; kalau tetap, hapus `tok.json` lalu login ulang |
 | `429 Too Many Requests` | rate limit | tunggu; query lagi dengan `--gap=5` |
@@ -188,7 +190,7 @@ Dengan `--usage`:
 
 | File | Isi |
 |---|---|
-| `install.sh` / `install.ps1` | installer satu baris (Linux/macOS / Windows) |
+| `install.sh` / `install.ps1` | installer satu baris — bikin command `pln-cek` & `pln-login` |
 | `pln-cek.py` | query IDPEL → daya + lat/long + pemilik (auto-refresh token) |
 | `pln-login.py` | login OTP sekali → tulis `tok.json` |
 | `PLN-CEK-DAYA-API.md` | referensi lengkap: semua endpoint, header, katalog 200/404/500, bukti uji, risiko PII |
@@ -214,4 +216,5 @@ koordinat, atribusi © OpenStreetMap contributors. Gagal → biarkan, jangan diu
 | v2 | `--usage` (riwayat 6 bulan), `get()` generik, baris `pemilik:` |
 | v2.1 | tagihan (titanium), alamat via OSM, tabel identifikasi `name` vs `aliasName` |
 | v3 | tutorial untuk **manusia** di terminal & PowerShell, semua contoh disanitasi |
-| v3.1 | **installer satu baris** `install.sh` / `install.ps1`, perintah `pln-cek` & `pln-login` otomatis, langkah dipangkas (hapus `chcp` dari jalur utama) |
+| v3.1 | **installer satu baris** `install.sh` / `install.ps1`, langkah dipangkas (hapus `chcp` dari jalur utama) |
+| v3.2 | command **sendiri** `pln-cek` / `pln-login` di PATH (`~/.local/bin`, PATH user Windows) — tanpa `python3`, jalan juga di script |
