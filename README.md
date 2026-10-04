@@ -162,39 +162,49 @@ Nilai `address` sudah ditutup oleh server, jadi yang terlihat hanya awalan jalan
 
 ## 5. Uninstall
 
-### Linux dan macOS
+Sama seperti instalasi, semuanya satu baris. Untuk Linux atau macOS:
 
 ```bash
+curl -fsSL https://raw.githubusercontent.com/qrevebnation/pln-cek/master/uninstall.sh | bash
+```
+
+Untuk PowerShell:
+
+```powershell
+iwr https://raw.githubusercontent.com/qrevebnation/pln-cek/master/uninstall.ps1 -UseBasicParsing | iex
+```
+
+Uninstaller menghapus command `pln-cek` dan `pln-login`, folder `pln-re` beserta `tok.json`,
+entri PATH yang tadi ditambahkan installer, dan blok `# pln-cek` di `~/.bashrc`. Dijalankan
+dua kali juga tidak masalah, dia cuma akan bilang kalau memang sudah tidak ada yang terpasang.
+
+Menghapus file tidak mencabut token yang sudah terlanjur terbit di server PLN. Kalau mau
+dicabut, keluar dari aplikasi PLN Mobile di HP kamu. Refresh token ikut mati, dan login
+berikutnya meminta OTP baru.
+
+<details>
+<summary>Tanpa uninstaller, jalankan manual</summary>
+
+```bash
+# Linux / macOS
 rm -f ~/.local/bin/pln-cek ~/.local/bin/pln-login
 rm -rf ~/pln-re
 ```
 
-Baris kedua menghapus folder `pln-re`, artinya `tok.json` ikut hilang dan login OTP harus
-diulang kalau suatu saat dipasang lagi. Kalau waktu instalasi installer menambahkan blok
-`# pln-cek` di `~/.bashrc`, hapus blok itu dengan `nano ~/.bashrc`, simpan, lalu
-`source ~/.bashrc`.
-
-### Windows
-
 ```powershell
+# Windows PowerShell
 Remove-Item "$env:USERPROFILE\pln-re" -Recurse -Force
-
 $p = [Environment]::GetEnvironmentVariable("Path","User")
 [Environment]::SetEnvironmentVariable("Path",
   (($p -split ';' | Where-Object { $_ -and $_ -ne "$env:USERPROFILE\pln-re" }) -join ';'),
   "User")
 ```
 
-Baris pertama menghapus script sekaligus `tok.json`. Baris berikutnya menyingkirkan folder
-`pln-re` dari PATH user. PowerShell yang sudah terbuka perlu ditutup dan dibuka lagi supaya
-perubahan PATH terbaca. Kalau kamu memasang fungsi secara manual lewat `notepad $PROFILE`,
-hapus juga baris `function pln-cek` dan `function pln-login`.
+Kalau kamu memasang fungsi sendiri lewat `notepad $PROFILE`, hapus baris `function pln-cek`
+dan `function pln-login`. Blok di `~/.bashrc` dihapus dengan `nano ~/.bashrc`, simpan, lalu
+`source ~/.bashrc`.
 
-### Cabut sesi dari sisi PLN (opsional)
-
-Menghapus file tidak mencabut token yang sudah terlanjur terbit di server PLN. Kalau mau
-dicabut, keluar dari aplikasi PLN Mobile di HP kamu. Refresh token ikut mati, dan login
-berikutnya butuh OTP baru.
+</details>
 
 ---
 
@@ -220,6 +230,7 @@ berikutnya butuh OTP baru.
 | File | Isi |
 |---|---|
 | `install.sh` / `install.ps1` | installer satu baris yang mendaftarkan command `pln-cek` dan `pln-login` |
+| `uninstall.sh` / `uninstall.ps1` | uninstaller satu baris yang menghapus command, folder `pln-re`, dan entri PATH |
 | `pln-cek.py` | query IDPEL, mengembalikan daya, lat/long, dan pemilik, dengan refresh token otomatis |
 | `pln-login.py` | login OTP sekali jalan, menulis `tok.json` |
 | `PLN-CEK-DAYA-API.md` | referensi lengkap: seluruh endpoint, header, katalog status 200/404/500, bukti uji, risiko PII |
@@ -252,3 +263,4 @@ per koordinat supaya 500 meter tidak dihitung ulang berkali-kali, dan cantumkan 
 | v3.1 | installer satu baris, `chcp` dipindah ke troubleshooting |
 | v3.2 | command sendiri `pln-cek` dan `pln-login` di PATH, tanpa `python3` |
 | v3.3 | penyuntingan gaya bahasa dan bagian uninstall |
+| v3.4 | uninstall jadi satu baris lewat `uninstall.sh` / `uninstall.ps1` |
