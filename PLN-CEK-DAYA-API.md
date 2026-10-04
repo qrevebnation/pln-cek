@@ -1,6 +1,6 @@
 # PLN Mobile — API Cek Daya & Lat/Long IDPEL (Reverse Engineering)
 
-Referensi lengkap untuk AI agent / developer. Bisa dijalankan ulang tanpa membuka aplikasi PLN Mobile.
+Referensi lengkap untuk developer. Bisa dijalankan ulang tanpa membuka aplikasi PLN Mobile.
 
 Status terakhir diuji: **2026-10-03**, aplikasi `com.icon.pln123` v**8.1.1** (versionCode `800010100`).
 
@@ -758,7 +758,7 @@ done
 | `~/Documents/PLN-CEK-DAYA-API.md` | dokumen ini |
 | `~/Documents/pln-cek.py` | skrip cek daya + lat/long (auto-refresh) |
 | `~/Documents/pln-login.py` | login OTP sekali → tulis `tok.json` |
-| `~/Documents/pln-cek-README.md` | tutor singkat untuk AI agent |
+| `README.md` | tutorial instalasi, login OTP, dan cek IDPEL (terminal & PowerShell) |
 | `~/Documents/pln-cek.tar.gz` | paket lengkap (README + doc + 2 skrip) |
 | `~/pln-re/tok.json` | `{"access": ..., "refresh": ...}` |
 | `~/pln-re/t.txt` | respons login OTP mentah |
